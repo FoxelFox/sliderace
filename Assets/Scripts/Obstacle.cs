@@ -16,13 +16,13 @@ public class Obstacle : MonoBehaviour {
 		}
 
 		foreach(Transform obs in obstacles) {
-			for(int i = 0; i < 10; ++i) {
+			for(int i = 0; i < 50; ++i) {
 				float r = (Random.value - 0.5f);
 				for(int j = 0; j < 2; ++j) {
 					var o = Instantiate(obs);
 					o.SetParent(transform);
 					o.transform.position = transform.position;
-					o.transform.Translate(r * 6 + (j - 0.5f) * 8,-i*64,0);
+					o.transform.Translate(r * 16 + (j - 0.5f) * 12,-i*64,0);
 				}
 			}
 		}
