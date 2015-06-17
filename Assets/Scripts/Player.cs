@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		rb.maxAngularVelocity = 100;
+
 	}
 	
 	// Update is called once per frame
@@ -31,10 +31,23 @@ public class Player : MonoBehaviour {
 
 
 	void FixedUpdate() {
+		force += 0.01f;
+		rb.maxAngularVelocity = force;
+		rb.AddTorque(+force,0,0,ForceMode.Force);
+
 		foreach (Touch touch in Input.touches) {
-			if (touch.phase == TouchPhase.Began) {
-				transform.Translate(1.0f, 0.0f, 0.0f);
+			switch (touch.phase) {
+			case TouchPhase.Moved: 
+			case TouchPhase.Began:
+			case TouchPhase.Stationary:
+				if(touch.position.x / Screen.currentResolution.width < 0.5f) {
+					rb.AddTorque(0,0,+force,ForceMode.Force);
+				} else {
+					rb.AddTorque(0,0,-force,ForceMode.Force);
+				}
+				break;
 			}
+
 		}
 		
 		if(Input.GetKey(KeyCode.A)) {
@@ -43,17 +56,10 @@ public class Player : MonoBehaviour {
 		if(Input.GetKey(KeyCode.D)) {
 			rb.AddTorque(0,0,-force,ForceMode.Force);
 		}
-		
-		if(Input.GetKey(KeyCode.W)) {
-			rb.AddTorque(+force,0,0,ForceMode.Force);
-		}
-		
-		if(Input.GetKey(KeyCode.S)) {
-			rb.AddTorque(-force,0,0,ForceMode.Force);
-		}
+
 
 		if(isOnGround && Input.GetKey(KeyCode.Space)) {
-			rb.AddForce( 0,350,0);
+			rb.AddForce( 0,4,0, ForceMode.Impulse);
 		}
 
 		
