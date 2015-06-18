@@ -86,6 +86,7 @@ public class Obstacle : MonoBehaviour {
 		if(player.position.z > 64) {
 			var offset = new Vector3(0,0, 64);
 			++lvl;
+			SR.Score = lvl;
 			// move player
 			player.position -= offset;
 

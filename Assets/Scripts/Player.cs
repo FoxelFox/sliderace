@@ -22,7 +22,18 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll) {
-		isOnGround = true;
+
+		ContactPoint[] points = coll.contacts;
+		foreach (var p in points) {
+			var local = p.point - transform.position;
+			if(local.z >= 0.35) {
+
+				Application.LoadLevel("Main");
+			}
+			if(local.y < 0.4) {
+				isOnGround = true;
+			}
+		}
 	}
 
 	void OnCollisionExit(Collision coll) {
