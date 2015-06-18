@@ -9,7 +9,7 @@ public class Map : MonoBehaviour {
 	void Start () {
 		flor = transform.Find("Floor").Find("floor");
 
-		for(int i = 1; i < 500; ++i) {
+		for(int i = 1; i < 5; ++i) {
 			var f = Instantiate(flor);
 			f.SetParent(flor.parent);
 			f.transform.position = transform.position;

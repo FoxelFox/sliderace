@@ -32,6 +32,8 @@ public class Player : MonoBehaviour {
 
 	void FixedUpdate() {
 		force += 0.01f;
+		if(force > 100)
+			force = 100;
 		rb.maxAngularVelocity = force;
 		rb.AddTorque(+force,0,0,ForceMode.Force);
 
